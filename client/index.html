@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatGPT</title>
+</head>
+
+<body>
+  <h1>ChatGPT 生成图片</h1>
+  <form>
+    <input type="textarea" id="message" />
+    <button type="button" onclick="sendMessage()">Send</button>
+  </form>
+  <div id="response"></div>
+
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById('message').value;
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: message }),
+      });
+      const resp = await response.json();
+      const base64ImgSrc = resp[0]['url'];
+      document.getElementById('response').innerHTML = `<img src="${base64ImgSrc}" width="512" height="512">`;
+    }
+  </script>
+</body>
+
+</html>
