@@ -5,6 +5,7 @@ import {
 } from "openai";
 import { useInjection } from "inversify-react";
 import { IOpenaiService } from "../../services/types";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 const ChatGPTChatWindow: FC = () => {
   const [inputValue, setInputValue] = useState("");
@@ -74,9 +75,10 @@ const ChatGPTChatWindow: FC = () => {
                         isUser ? "rounded-bl-lg" : "rounded-br-lg"
                       } max-w-xs`}
                     >
-                      <p className="text-sm text-gray-700 leading-snug">
-                        {chatMessage.content}
-                      </p>
+                      <ReactMarkdown
+                        className="text-sm text-gray-700 leading-snug"
+                        children={chatMessage.content}
+                      ></ReactMarkdown>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                       {chatMessage.role}
