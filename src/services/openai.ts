@@ -7,6 +7,7 @@ import {
   IOpenaiService,
   ImageSize,
   RespFormat,
+  CreateTranscription,
 } from "./types";
 
 const configuration = new Configuration({
@@ -51,7 +52,7 @@ export class OpenaiService implements IOpenaiService {
     return completion.data.choices[0].message;
   }
 
-  public async createImage(createImage: CreateImage) {
+  public async createImage(createImage: Partial<CreateImage>) {
     if (!createImage.prompt) return [];
 
     const {
@@ -68,5 +69,29 @@ export class OpenaiService implements IOpenaiService {
       response_format,
     });
     return resp.data.data;
+  }
+
+  public async transcribeAudio(
+    createTranscription: Partial<CreateTranscription>
+  ) {
+    const {
+      file,
+      model = "whisper-1",
+      prompt,
+      responseFormat,
+      temperature,
+      language,
+    } = createTranscription;
+    if (!file) return;
+
+    const resp = await this.openai.createTranscription(
+      file,
+      model,
+      prompt,
+      responseFormat,
+      temperature,
+      language
+    );
+    return resp.data.text;
   }
 }

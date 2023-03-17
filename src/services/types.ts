@@ -6,11 +6,15 @@ import type {
 
 export const IOpenaiService = Symbol("IOpenaiService");
 export interface IOpenaiService {
-  generateText(completionData: Partial<CreateCompletion>): Promise<string | undefined>;
+  generateText(
+    completionData: Partial<CreateCompletion>
+  ): Promise<string | undefined>;
   generateAnswer(
     chatCompletion: Partial<CreateChatCompletion>
   ): Promise<ChatCompletionResponseMessage | undefined>;
-  createImage(createImage: Partial<CreateImage>): Promise<ImagesResponseDataInner[]>;
+  createImage(
+    createImage: Partial<CreateImage>
+  ): Promise<ImagesResponseDataInner[]>;
 }
 
 export interface CreateImage {
@@ -21,7 +25,7 @@ export interface CreateImage {
 }
 
 export interface CreateChatCompletion {
-  model: "gpt-3.5-turbo" | "gpt-3.5-turbo-0301";
+  model: "gpt-3.5-turbo" | "text-davinci-003" | "gpt-4";
   messages: ChatCompletionRequestMessage[];
   temperature?: number;
 }
@@ -31,6 +35,15 @@ export interface CreateCompletion {
   prompt: string;
   max_tokens?: number;
   temperature: number;
+}
+
+export interface CreateTranscription {
+  file: File;
+  model: string;
+  prompt?: string;
+  responseFormat?: string;
+  temperature?: number;
+  language?: string;
 }
 
 export enum RespFormat {

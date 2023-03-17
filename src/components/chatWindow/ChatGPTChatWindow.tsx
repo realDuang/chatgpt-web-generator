@@ -45,10 +45,6 @@ const ChatGPTChatWindow: FC = () => {
         setChatHistory(answerChatHistory);
       }
     }
-
-
-
-
   };
 
   return (
