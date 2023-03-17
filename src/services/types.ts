@@ -6,11 +6,11 @@ import type {
 
 export const IOpenaiService = Symbol("IOpenaiService");
 export interface IOpenaiService {
-  generateText(completionData: CreateCompletion): Promise<string | undefined>;
+  generateText(completionData: Partial<CreateCompletion>): Promise<string | undefined>;
   generateAnswer(
-    chatCompletion: CreateChatCompletion
+    chatCompletion: Partial<CreateChatCompletion>
   ): Promise<ChatCompletionResponseMessage | undefined>;
-  createImage(createImage: CreateImage): Promise<ImagesResponseDataInner[]>;
+  createImage(createImage: Partial<CreateImage>): Promise<ImagesResponseDataInner[]>;
 }
 
 export interface CreateImage {
