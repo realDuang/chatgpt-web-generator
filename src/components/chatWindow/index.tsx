@@ -8,7 +8,7 @@ import { IOpenaiService } from "../../services/types";
 import ChatDialog from "./ChatDialog";
 import ChatInput from "./ChatInput";
 
-const ChatGPTChatWindow: FC = () => {
+const ChatWindow: FC = () => {
   const [chatHistory, setChatHistory] = useState<
     ChatCompletionResponseMessage[]
   >([]);
@@ -48,11 +48,11 @@ const ChatGPTChatWindow: FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col flex-1 h-screen md:pl-[260px]">
       <ChatDialog chatHistory={chatHistory} />
       <ChatInput sendMessage={sendMessage} />
     </div>
   );
 };
 
-export default ChatGPTChatWindow;
+export default ChatWindow;
