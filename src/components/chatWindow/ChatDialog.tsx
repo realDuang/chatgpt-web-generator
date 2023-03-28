@@ -33,7 +33,7 @@ const ChatDialog: FC<ChatDialogProps> = (props) => {
                 <div className={`flex flex-col ${isUser ? "mr-2" : "ml-2"}`}>
                   <div
                     className={`bg-gray-300 px-4 py-2 rounded-t-lg ${isUser ? "rounded-bl-lg" : "rounded-br-lg"
-                      } max-w-xs`}
+                      } max-w-2xl break-words`}
                   >
                     <ReactMarkdown
                       className="text-sm text-gray-700 leading-snug"

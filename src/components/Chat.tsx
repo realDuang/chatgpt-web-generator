@@ -4,7 +4,7 @@ import { MenuView } from "./MenuView";
 
 const Chat: FC = () => {
   return (
-    <div className="relative overflow-hidden w-full h-screen">
+    <div className="relative w-full h-[95vh]">
       <MenuView />
       <ChatWindow />
     </div>

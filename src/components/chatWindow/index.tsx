@@ -24,9 +24,11 @@ const ChatWindow: FC = () => {
     const newChatHistory = [...chatHistory, newChatMessage];
     setChatHistory(newChatHistory);
 
-    const imageTag = '#image# '
+    const imageTag = "#image# ";
     if (message.startsWith(imageTag)) {
-      const [images] = await openaiService.createImage({ prompt: message.replace(imageTag, "") });
+      const [images] = await openaiService.createImage({
+        prompt: message.replace(imageTag, ""),
+      });
       if (images.url) {
         const newAnswer: ChatCompletionResponseMessage = {
           // markdown image
@@ -48,10 +50,14 @@ const ChatWindow: FC = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 h-screen md:pl-[260px]">
-      <ChatDialog chatHistory={chatHistory} />
-      <ChatInput sendMessage={sendMessage} />
-    </div>
+    <>
+      <div className="flex flex-col h-full w-full md:pl-[260px] overflow-auto">
+        <ChatDialog chatHistory={chatHistory} />
+      </div>
+      <div className="fixed bottom-0 left-0 w-full md:pl-[260px]">
+        <ChatInput sendMessage={sendMessage} />
+      </div>
+    </>
   );
 };
 
