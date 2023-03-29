@@ -1,17 +1,23 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import {
   ChatCompletionResponseMessageRoleEnum,
   ChatCompletionResponseMessage,
 } from "openai";
 import { useInjection } from "inversify-react";
-import { IOpenaiService } from "../../services/types";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { chatHistoryState } from "@/store/chatHistories";
+
+import { currentChatIdState } from "@/store/chatHistories";
+
+import { IOpenaiService } from "@/services/types";
 import ChatDialog from "./ChatDialog";
 import ChatInput from "./ChatInput";
 
 const ChatWindow: FC = () => {
-  const [chatHistory, setChatHistory] = useState<
-    ChatCompletionResponseMessage[]
-  >([]);
+  const currentChatId = useRecoilValue(currentChatIdState);
+  const [chatHistory, setChatHistory] = useRecoilState(
+    chatHistoryState(currentChatId)
+  );
 
   const openaiService = useInjection<IOpenaiService>(IOpenaiService);
 

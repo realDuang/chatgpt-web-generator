@@ -17,6 +17,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     // inversifyjs support
     "types": ["reflect-metadata"],
     "experimentalDecorators": true,
