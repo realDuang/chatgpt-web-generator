@@ -25,7 +25,7 @@ export interface CreateImage {
 }
 
 export interface CreateChatCompletion {
-  model: "gpt-3.5-turbo" | "text-davinci-003" | "gpt-4";
+  model: ChatCompletionModelEnum;
   messages: ChatCompletionRequestMessage[];
   temperature?: number;
 }
@@ -55,4 +55,10 @@ export enum ImageSize {
   Size256 = "256x256",
   Size512 = "512x512",
   Size1024 = "1024x1024",
+}
+
+export enum ChatCompletionModelEnum {
+  'gpt-3.5-turbo' = 'gpt-3.5-turbo',
+  'gpt-4' = 'gpt-4',
+  'gpt-4-32k' = 'gpt-4-32k',
 }

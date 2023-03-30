@@ -9,7 +9,7 @@ export interface IChatHistory {
   [chatId: string]: ChatCompletionResponseMessage[];
 }
 
-const DEFAULT_MESSAGE: ChatCompletionResponseMessage = {
+export const DEFAULT_MESSAGE: ChatCompletionResponseMessage = {
   role: ChatCompletionRequestMessageRoleEnum.Assistant,
   content: "你好，我是小助手，有什么可以帮到你的吗？",
 };

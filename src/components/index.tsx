@@ -1,12 +1,12 @@
 import { FC } from "react";
 
 import ChatWindow from "./chatWindow";
-import { MenuView } from "./menu";
+import { Menu } from "./menu";
 
 const Chat: FC = () => {
   return (
     <div className="relative w-full h-[94vh]">
-      <MenuView />
+      <Menu />
       <ChatWindow />
     </div>
   );
