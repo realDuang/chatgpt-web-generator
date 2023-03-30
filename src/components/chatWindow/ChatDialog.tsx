@@ -4,13 +4,14 @@ import {
   ChatCompletionResponseMessage,
 } from "openai";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export interface ChatDialogProps {
-  chatHistory: ChatCompletionResponseMessage[]
+  chatHistory: ChatCompletionResponseMessage[];
 }
 
 const ChatDialog: FC<ChatDialogProps> = (props) => {
-  const { chatHistory } = props
+  const { chatHistory } = props;
   return (
     <div className="bg-gray-200 flex-grow">
       <div className="flex flex-col h-full px-4 py-8">
@@ -21,19 +22,23 @@ const ChatDialog: FC<ChatDialogProps> = (props) => {
             return (
               <div
                 key={chatMessage.content}
-                className={`flex items-end mb-4 ${isUser ? "flex-row-reverse" : ""
-                  }`}
+                className={`flex items-end mb-4 ${
+                  isUser && "flex-row-reverse"
+                }`}
               >
                 {isUser ? (
-                  <div className="rounded-full h-8 w-8 bg-blue-600"></div>
+                  <div className="rounded-full h-8 w-8 bg-white">
+                    <UserCircleIcon />
+                  </div>
                 ) : (
                   <div className="w-8 h-8 rounded-full bg-green-500"></div>
                 )}
 
                 <div className={`flex flex-col ${isUser ? "mr-2" : "ml-2"}`}>
                   <div
-                    className={`bg-gray-300 px-4 py-2 rounded-t-lg ${isUser ? "rounded-bl-lg" : "rounded-br-lg"
-                      } max-w-2xl break-words`}
+                    className={`bg-gray-300 px-4 py-2 rounded-t-lg ${
+                      isUser ? "rounded-bl-lg" : "rounded-br-lg"
+                    } max-w-2xl break-words`}
                   >
                     <ReactMarkdown
                       className="text-sm text-gray-700 leading-snug"
@@ -50,7 +55,7 @@ const ChatDialog: FC<ChatDialogProps> = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChatDialog
+export default ChatDialog;

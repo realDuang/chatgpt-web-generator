@@ -12,14 +12,22 @@ import { currentChatIdState } from "@/store/chatHistories";
 import { IOpenaiService } from "@/services/types";
 import ChatDialog from "./ChatDialog";
 import ChatInput from "./ChatInput";
+import {
+  FeatureEnum,
+  currentChatCompletionModelState,
+  currentFeatureState,
+} from "@/store/settings";
 
 const ChatWindow: FC = () => {
+  const openaiService = useInjection<IOpenaiService>(IOpenaiService);
+
   const currentChatId = useRecoilValue(currentChatIdState);
   const [chatHistory, setChatHistory] = useRecoilState(
     chatHistoryState(currentChatId)
   );
 
-  const openaiService = useInjection<IOpenaiService>(IOpenaiService);
+  const feature = useRecoilValue(currentFeatureState);
+  const chatModel = useRecoilValue(currentChatCompletionModelState);
 
   const sendMessage = async (message: string) => {
     const newChatMessage: ChatCompletionResponseMessage = {
@@ -30,10 +38,9 @@ const ChatWindow: FC = () => {
     const newChatHistory = [...chatHistory, newChatMessage];
     setChatHistory(newChatHistory);
 
-    const imageTag = "#image# ";
-    if (message.startsWith(imageTag)) {
+    if (feature === FeatureEnum.Image) {
       const [images] = await openaiService.createImage({
-        prompt: message.replace(imageTag, ""),
+        prompt: message,
       });
       if (images.url) {
         const newAnswer: ChatCompletionResponseMessage = {
@@ -44,14 +51,16 @@ const ChatWindow: FC = () => {
         const answerChatHistory = [...newChatHistory, newAnswer];
         setChatHistory(answerChatHistory);
       }
-    } else {
-      const answer = await openaiService.generateAnswer({
-        messages: newChatHistory,
-      });
-      if (answer) {
-        const answerChatHistory = [...newChatHistory, answer];
-        setChatHistory(answerChatHistory);
-      }
+      return;
+    }
+
+    const answer = await openaiService.generateAnswer({
+      messages: newChatHistory,
+      model: chatModel,
+    });
+    if (answer) {
+      const answerChatHistory = [...newChatHistory, answer];
+      setChatHistory(answerChatHistory);
     }
   };
 
